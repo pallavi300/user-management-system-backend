@@ -18,10 +18,6 @@ async function main() {
 
   const app = express();
 
-  // #region agent log
-  fetch('http://127.0.0.1:7448/ingest/4a79958c-8558-43c1-9527-8f27329a7555',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'4c6b0f'},body:JSON.stringify({sessionId:'4c6b0f',runId:'pre-fix',hypothesisId:'H3',location:'backend/src/server.js:23',message:'server_env_snapshot',data:{clientOrigin:env.CLIENT_ORIGIN,port:env.PORT,cookieName:env.COOKIE_NAME,cookieSecure:Boolean(env.COOKIE_SECURE)},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion agent log
-
   app.use(morgan("dev"));
   app.use(
     cors({
@@ -35,9 +31,7 @@ async function main() {
       (req.method === "OPTIONS" || req.method === "POST") &&
       req.path === "/api/auth/login"
     ) {
-      // #region agent log
-      fetch('http://127.0.0.1:7448/ingest/4a79958c-8558-43c1-9527-8f27329a7555',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'4c6b0f'},body:JSON.stringify({sessionId:'4c6b0f',runId:'pre-fix',hypothesisId:'H1',location:'backend/src/server.js:41',message:'incoming_login_request',data:{method:req.method,path:req.path,origin:String(origin||''),hasCookieHeader:Boolean(req.headers.cookie),allowedOrigin:env.CLIENT_ORIGIN},timestamp:Date.now()})}).catch(()=>{});
-      // #endregion agent log
+      void origin;
     }
     next();
   });
